@@ -8,8 +8,9 @@ See [here](http://software-lab.de/down.html) for details.
 
 Clone Repo.
 
+```bash
 $ cd bad-poetry
-
 $ pil main.l -main -go +
+```
 
-Point your browser to localhost:8080/ 
+Point your browser to http://localhost:8080/ 
