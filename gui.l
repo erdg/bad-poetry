@@ -32,36 +32,36 @@
       (html 0 "Bad Poetry" "@lib.css" NIL
          (nav)
          (form NIL
-   (diaform '(Dst)
-      (<grid> 3
-         "Title" (gui 'title '(+Var +DbHint +TextField) 'poem-title* '(title +Poem) 30)
-         (searchButton '(init> (: home query)))
-         "Poet" (gui 'poet '(+Var +DbHint +TextField) 'poem-poet* '(poet +Poem) 30)
-         (resetButton '(title poet txt query))
-         "Prose" (gui 'txt '(+Var +TextField) 'poem-txt* 30) )
-      (gui 'query '(+QueryChart) (cho)
-         '(goal 
-            (quote
-               @Title poem-title*
-               @Poet  poem-poet*
-               @Txt   poem-txt*
-               (select (@@)
-                  ((title +Poem @Title) (poet +Poem @Poet) (txt +Poem @Txt))
-                  (tolr @Title @@ title)
-                  (tolr @Poet @@ poet)
-                  (part @Txt @@ txt) ) ) )
-         2
-         '((This) (list This (: poet))) )
-      (<table> NIL "Relevant Poems"
-         (quote
-            (NIL "Title")
-            (NIL "Poet") )
-         (do (cho)
-            (<row> NIL
-               (gui 1 '(+ObjView +TextField) '(: title))
-               (gui 2 '(+TextField)) ) ) )
-      (<spread> 
-         (scroll (cho)) ) ) ) ) ) )
+            (diaform '(Dst)
+               (<grid> 3
+                  "Title" (gui 'title '(+Var +DbHint +TextField) 'poem-title* '(title +Poem) 30)
+                  (searchButton '(init> (: home query)))
+                  "Poet" (gui 'poet '(+Var +DbHint +TextField) 'poem-poet* '(poet +Poem) 30)
+                  (resetButton '(title poet txt query))
+                  "Prose" (gui 'txt '(+Var +TextField) 'poem-txt* 30) )
+               (gui 'query '(+QueryChart) (cho)
+                  '(goal 
+                     (quote
+                        @Title poem-title*
+                        @Poet  poem-poet*
+                        @Txt   poem-txt*
+                        (select (@@)
+                           ((title +Poem @Title) (poet +Poem @Poet) (txt +Poem @Txt))
+                           (tolr @Title @@ title)
+                           (tolr @Poet @@ poet)
+                           (part @Txt @@ txt) ) ) )
+                  2
+                  '((This) (list This (: poet))) )
+               (<table> NIL "Relevant Poems"
+                  (quote
+                     (NIL "Title")
+                     (NIL "Poet") )
+                  (do (cho)
+                     (<row> NIL
+                        (gui 1 '(+ObjView +TextField) '(: title))
+                        (gui 2 '(+TextField)) ) ) )
+               (<spread> 
+                  (scroll (cho)) ) ) ) ) ) )
 
 (de show-poems ()
    (app)
