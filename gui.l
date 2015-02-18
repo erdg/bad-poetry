@@ -13,21 +13,43 @@
          (<h3> NIL "Because the World Needs It") ) ) )
 
 (de create-poems ()
-   (app)
    (action
       (html 0 "Bad Poetry" "@lib.css" NIL
          (nav)
          (<h1> NIL "Poem Creation Station")
          (form NIL 
             (<grid> 2
-               "Title" (gui '(+Var +TextField) 'poem-title* 30 )
-               "Pen Name" (gui '(+Var +Cue +TextField) 'poem-poet* "Tag your poem with an alias" 30 )
-               "Poem" (gui '(+Var +Cue +TextField) 'poem-txt* "Bad poetry goes here" 30 6 ) )
+               "Title" 
+                  (gui '(+Var +TextField) 
+                     'poem-title* 
+                     30 )
+               "Pen Name" 
+                  (gui '(+Var +Cue +TextField) 
+                     'poem-poet* 
+                     "Tag your poem with an alias" 
+                     30 )
+               "Poem" 
+                  (gui '(+Var +Cue +TextField) 
+                     'poem-txt* 
+                     "Bad poetry goes here" 
+                     30 6 ) )
             (gui '(+Button) "Publish your bad poem"
-               '(new! '(+Poem) 'title poem-title* 'poet poem-poet* 'txt poem-txt*) ) ) ) ) )
+               '(prog
+                  (new! '(+Poem) 
+                     'title poem-title* 
+                     'poet poem-poet* 
+                     'txt poem-txt*)
+                  (off poem-title* poem-poet* poem-txt*) 
+                  (setq *Url "!thanks") ) ) ) ) ) )
+
+(de thanks ()
+   (action
+      (html 0 "Bad Poetry" "@lib.css" NIL
+         (nav)
+         (<h1> NIL "Thanks!")
+         (<p> NIL "Your poem has been submitted.") ) ) )
 
 (de search-poems (Dst)
-   (app)
    (action
       (html 0 "Bad Poetry" "@lib.css" NIL
          (nav)
@@ -64,7 +86,6 @@
                   (scroll (cho)) ) ) ) ) ) )
 
 (de show-poems ()
-   (app)
    (action
       (html 0 "Bad Poetry" "@lib.css" NIL
          (nav)

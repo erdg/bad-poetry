@@ -3,6 +3,7 @@
    "!search-poems"
    "!create-poems"
    "!show-poems"
+   "!thanks"
    "@lib.css" )
 
 (load "@lib/http.l" "@lib/xhtml.l" "@lib/form.l")
