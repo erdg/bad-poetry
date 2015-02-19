@@ -4,4 +4,4 @@
    (rel txt (+IdxFold +String))
 
 (dm url> (Tab)
-   (list "!show-poems" '*ID This) )
+   (list "!show-poems2" '*ID This) )

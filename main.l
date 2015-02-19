@@ -3,6 +3,7 @@
    "!search-poems"
    "!create-poems"
    "!show-poems"
+   "!show-poems2"
    "!thanks"
    "@lib.css" )
 

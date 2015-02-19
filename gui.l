@@ -95,3 +95,13 @@
                "Poet" (gui '(+E/R +TextField) '(poet : home obj) 30)
                "Poem" (gui '(+E/R +TextField) '(txt : home obj) 30 6) ) ) ) ) )
 
+
+(de show-poems2 ()
+   (action
+      (html 0 "Bad Poetry" "@lib.css" NIL
+         (nav)
+         (form NIL
+            (<h1> NIL (<id> (: title)))
+            (<h3> NIL (<id> (: poet)))
+            (<p> NIL (<id> (: txt))) 
+            (stepBtn 'title '+Poem) ) ) ) )
