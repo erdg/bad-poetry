@@ -1,5 +1,5 @@
 (de nav ()
-   (<div> 'nav
+   (<div> 'nav-collapse
       (<ul> NIL
          (<li> NIL (<href> "Share a Poem" "!create-poems"))
          (<li> NIL (<href> "Search for Poems" "!search-poems")) ) ) )
@@ -7,47 +7,73 @@
 (de work ()
    (app)
    (action
-      (html 0 "Bad Poetry" "@lib.css" NIL
+      (html 0 "Bad Poetry" *Css NIL
          (nav)
+         (----)
          (<h1> NIL "Bad Poetry")
-         (<h3> NIL "Because the World Needs It") ) ) )
+         (<h3> NIL "Because the World Needs It")
+         (javascript NIL
+            "var nav = responsiveNav('.nav-collapse');" ) ) ) )
+
+
 
 (de create-poems ()
    (action
-      (html 0 "Bad Poetry" "@lib.css" NIL
+      (html 0 "Bad Poetry" *Css NIL  
          (nav)
+         (----)
          (<h1> NIL "Poem Creation Station")
          (form NIL 
-            (<grid> 2
-               "Title" 
-                  (gui '(+Var +TextField) 
-                     'poem-title* 
-                     30 )
-               "Pen Name" 
-                  (gui '(+Var +Cue +TextField) 
-                     'poem-poet* 
-                     "Tag your poem with an alias" 
-                     30 )
-               "Poem" 
-                  (gui '(+Var +Cue +TextField) 
-                     'poem-txt* 
-                     "Bad poetry goes here" 
-                     30 6 ) )
-            (gui '(+Button) "Publish your bad poem"
-               '(prog
-                  (new! '(+Poem) 
-                     'title poem-title* 
-                     'poet poem-poet* 
-                     'txt poem-txt*)
-                  (off poem-title* poem-poet* poem-txt*) 
-                  (setq *Url "!thanks") ) ) ) ) ) )
+            (capture-poems)
+            (publish-button) )
+         (javascript NIL
+            "var nav = responsiveNav('.nav-collapse', {
+               animate: true,
+               transition: 284,
+               label: 'Bad Poetry',
+               insert: 'before'
+            });" ) ) ) )
 
-(de thanks ()
+(de capture-poems ()
+   (<div> NIL # for CSS, later
+      (<grid> 2
+         "Title"
+            (gui '(+Var +Cue +TextField)
+               'title*
+               "Catchy title"
+               30 )
+         "Alias"
+            (gui '(+Var +Cue +TextField)
+               'poet*
+               "Tag your work"
+               30 )
+         "Poetry"
+            (gui '(+Var +Cue +TextField)
+               'txt*
+               "Bad poetry here"
+               60 10 ) ) ) )
+
+(de publish-button ()
+   (gui '(+Button) "Publish bad poetry"
+      '(prog
+         (new! '(+Poem) 
+            'title title*
+            'poet  poet*
+            'txt   txt*
+            'date  (date) )
+         (off title* poet* txt*)
+         (setq *Url "!published") ) ) )
+
+(de published ()
    (action
       (html 0 "Bad Poetry" "@lib.css" NIL
          (nav)
-         (<h1> NIL "Thanks!")
-         (<p> NIL "Your poem has been submitted.") ) ) )
+         (<h1> NIL "Congratulations!")
+         (<p> NIL "Your poetry has been published!") ) ) )
+
+
+
+
 
 (de search-poems (Dst)
    (action
@@ -104,4 +130,5 @@
             (<h1> NIL (<id> (: title)))
             (<h3> NIL (<id> (: poet)))
             (<p> NIL (<id> (: txt))) 
+            (<p> NIL (<id> (: date)))
             (stepBtn 'title '+Poem) ) ) ) )
