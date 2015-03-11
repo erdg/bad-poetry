@@ -1,19 +1,35 @@
 (de nav ()
-   (<div> 'nav-collapse
-      (<ul> NIL
-         (<li> NIL (<href> "Share a Poem" "!create-poems"))
-         (<li> NIL (<href> "Search for Poems" "!search-poems")) ) ) )
+   (<div> 'header
+      (<style> 'logo
+         (<href> "Bad Poetry" "!work") )
+      (<div> 'nav-collapse
+         (<ul> NIL
+            (<li> NIL (<href> "Share a Poem" "!create-poems"))
+            (<li> NIL (<href> "Search for Poems" "!search-poems")) ) ) ) )
+
+(de nav-js ()
+   (javascript NIL
+            "var nav = responsiveNav('.nav-collapse', {
+               animate: true,
+               transition: 284,
+               label: 'Bad Poetry',
+               insert: 'before'
+            });" ) )
+
+(de fixed-nav-scripts ()
+   (javascript "js/fixed-responsive-nav.js")
+   (javascript "js/fastclick.js") )
 
 (de work ()
    (app)
    (action
-      (html 0 "Bad Poetry" *Css NIL
+      (html 0 "Bad Poetry" *Css 'landing-page
          (nav)
-         (----)
-         (<h1> NIL "Bad Poetry")
-         (<h3> NIL "Because the World Needs It")
-         (javascript NIL
-            "var nav = responsiveNav('.nav-collapse');" ) ) ) )
+         (<div> 'center-in-viewport
+            (<h1> 'bad "bad")
+            (<h1> NIL "poetry") )
+         (fixed-nav-scripts)
+         (nav-js) ) ) )
 
 
 
@@ -21,40 +37,37 @@
    (action
       (html 0 "Bad Poetry" *Css NIL  
          (nav)
-         (----)
          (<h1> NIL "Poem Creation Station")
-         (form NIL 
+         (form 'center-in-viewport 
             (capture-poems)
             (publish-button) )
-         (javascript NIL
-            "var nav = responsiveNav('.nav-collapse', {
-               animate: true,
-               transition: 284,
-               label: 'Bad Poetry',
-               insert: 'before'
-            });" ) ) ) )
+         (fixed-nav-scripts) 
+         (nav-js) ) ) )
+
 
 (de capture-poems ()
-   (<div> NIL # for CSS, later
-      (<grid> 2
-         "Title"
-            (gui '(+Var +Cue +TextField)
-               'title*
-               "Catchy title"
-               30 )
-         "Alias"
-            (gui '(+Var +Cue +TextField)
-               'poet*
-               "Tag your work"
-               30 )
-         "Poetry"
-            (gui '(+Var +Cue +TextField)
-               'txt*
-               "Bad poetry here"
-               60 10 ) ) ) )
+   (<div> 'row # for CSS, later
+      (gui '(+Style +Var +Cue +TextField)
+         'col
+         'title*
+         "Catchy title"
+         30 )
+      (gui '(+Style +Var +Cue +TextField)
+         'col
+         'poet*
+         "Tag your work"
+         30 ) )
+   (gui '(+Var +Cue +TextField)
+      'txt*
+      "Bad poetry here"
+      60 10 ) )
+
 
 (de publish-button ()
-   (gui '(+Button) "Publish bad poetry"
+   (<div> 'row
+   (gui '(+Style +Button) 
+      "col btn btn-b btn-sm smooth" 
+      "Publish bad poetry"
       '(prog
          (new! '(+Poem) 
             'title title*
@@ -62,32 +75,43 @@
             'txt   txt*
             'date  (date) )
          (off title* poet* txt*)
-         (setq *Url "!published") ) ) )
+         (setq *Url "!published") ) ) ) )
+
 
 (de published ()
    (action
       (html 0 "Bad Poetry" "@lib.css" NIL
          (nav)
          (<h1> NIL "Congratulations!")
-         (<p> NIL "Your poetry has been published!") ) ) )
-
-
-
+         (<p> NIL "Your poetry has been published!")
+         (nav-js) ) ) )
 
 
 (de search-poems (Dst)
    (action
-      (html 0 "Bad Poetry" "@lib.css" NIL
+      (html 0 "Bad Poetry" *Css NIL
          (nav)
          (form NIL
             (diaform '(Dst)
-               (<grid> 3
-                  "Title" (gui 'title '(+Var +DbHint +TextField) 'poem-title* '(title +Poem) 30)
-                  (searchButton '(init> (: home query)))
-                  "Poet" (gui 'poet '(+Var +DbHint +TextField) 'poem-poet* '(poet +Poem) 30)
-                  (resetButton '(title poet txt query))
-                  "Prose" (gui 'txt '(+Var +TextField) 'poem-txt* 30) )
-               (gui 'query '(+QueryChart) (cho)
+               (gui 'title '(+Var +DbHint +Cue +TextField) 
+                  'poem-title* 
+                  '(title +Poem) 
+                  "Title"
+                  30 )
+               (gui 'poet '(+Var +DbHint +Cue +TextField) 
+                  'poem-poet* 
+                  '(poet +Poem) 
+                  "Poet"
+                  30 )
+               (gui 'txt '(+Var +Cue +TextField) 
+                  'poem-txt* 
+                  "Text" 30) 
+               (<div> 'row
+                  (<style> "col btn btn-classless btn-sm smooth"
+                     (searchButton '(init> (: home query))) )
+                  (<style> "col btn btn-classless btn-sm smooth"
+                     (resetButton '(title poet txt query)) ) )
+               (gui 'query '(+QueryChart) 8 
                   '(goal 
                      (quote
                         @Title poem-title*
@@ -100,20 +124,21 @@
                            (part @Txt @@ txt) ) ) )
                   2
                   '((This) (list This (: poet))) )
-               (<table> NIL "Relevant Poems"
+               (<table> 'table "Relevant Poems"
                   (quote
                      (NIL "Title")
                      (NIL "Poet") )
-                  (do (cho)
+                  (do 8 
                      (<row> NIL
                         (gui 1 '(+ObjView +TextField) '(: title))
                         (gui 2 '(+TextField)) ) ) )
                (<spread> 
-                  (scroll (cho)) ) ) ) ) ) )
+                  (scroll 8) ) ) )
+         (nav-js) ) ) )
 
 (de show-poems ()
    (action
-      (html 0 "Bad Poetry" "@lib.css" NIL
+      (html 0 "Bad Poetry" *Css NIL
          (nav)
          (idForm "Poem" '(search-poems) 'title '+Poem NIL NIL '((: title))
             (<grid> 2
@@ -124,11 +149,12 @@
 
 (de show-poems2 ()
    (action
-      (html 0 "Bad Poetry" "@lib.css" NIL
+      (html 0 "Bad Poetry" *Css NIL
          (nav)
-         (form NIL
+         (form 'center-in-viewport
             (<h1> NIL (<id> (: title)))
             (<h3> NIL (<id> (: poet)))
             (<p> NIL (<id> (: txt))) 
             (<p> NIL (<id> (: date)))
-            (stepBtn 'title '+Poem) ) ) ) )
+            (stepBtn 'title '+Poem) )
+         (nav-js) ) ) )

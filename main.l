@@ -4,23 +4,21 @@
    "!create-poems"
    "!show-poems"
    "!show-poems2"
-   "!published"
+   "!published" 
+   "@lib.css" )
 
-   "@lib.css"
-   "styles.css"
-   "responsive-nav.css"
-   "responsivemobilemenu.css"
-   "ungrid.css"
-
-   "responsivenav.eot"
-   "responsivenav.svg"
-   "responsivenav.woff"
-   "responsivenav.ttf" )
 
 (push1 '*JS
    (allow "js/responsive-nav.js") )
 
-(setq *Css '("@lib.css" "css/responsive-nav.css" "css/styles.css"))
+
+(setq *Css 
+   (list 
+      "css/normalize.css" 
+      #"@lib.css"
+      "css/entireframework.min.css" 
+      "css/fixed-responsive-nav.css"
+      "css/bad-poetry.css" ) )
 
 (load "@lib/http.l" "@lib/xhtml.l" "@lib/form.l")
 

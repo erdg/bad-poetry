@@ -1,0 +1,68 @@
+.landing-page {
+  background-color: #EE4279;
+}
+
+.landing-page h1 {
+  color: #fff;
+  font-size: 12vmax;
+  font-weight: 900;
+  font-family: Georgia, serif;
+  margin: 0 auto 0;
+  width: 3em;
+  line-height: 0.58;
+}
+
+/* color 'bad poetry' in fixed nav */
+.logo {
+  color: #000;
+}
+
+/* color 'bad' in 'bad poetry' */
+.landing-page .bad {
+  color: #CDDC2D;
+}
+
+.center-in-viewport {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+/* nav colors */
+.nav-collapse a {
+  background-color: #CDDC2D;
+}
+
+.header {
+  background-color: #CDDC2D;
+}
+
+
+/* colors */
+.green {
+  color: 536568;
+}
+
+.green-bg {
+  background-color: 536568;
+}
+
+.yellow {
+  color: #CDDC2D;
+}
+
+.yellow-bg {
+  background-color: #CDDC2D;
+}
+
+.pink {
+  color: #EE4279;
+}
+
+.pink-bg {
+  background-color: #EE4279;
+}
