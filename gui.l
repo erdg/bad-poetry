@@ -1,5 +1,5 @@
 (de nav ()
-   (<div> 'header
+   (<div> "header pink-bg"
       (<style> 'logo
          (<href> "Bad Poetry" "!work") )
       (<div> 'nav-collapse
@@ -12,7 +12,7 @@
             "var nav = responsiveNav('.nav-collapse', {
                animate: true,
                transition: 284,
-               label: 'Bad Poetry',
+               label: 'bad poetry',
                insert: 'before'
             });" ) )
 
@@ -23,11 +23,12 @@
 (de work ()
    (app)
    (action
-      (html 0 "Bad Poetry" *Css 'landing-page
+      (html 0 "Bad Poetry" *Css "landing-page yellow-bg"
          (nav)
          (<div> 'center-in-viewport
-            (<h1> 'bad "bad")
-            (<h1> NIL "poetry") )
+            (<h1> 'pink "bad")
+            (<h1> 'white "poetry") )
+         (<div> 'mask NIL)
          (fixed-nav-scripts)
          (nav-js) ) ) )
 
@@ -35,9 +36,9 @@
 
 (de create-poems ()
    (action
-      (html 0 "Bad Poetry" *Css NIL  
+      (html 0 "Create Poetry" *Css NIL  
          (nav)
-         (<h1> NIL "Poem Creation Station")
+         (<h1> 'nav-padding "Poem Creation Station")
          (form 'center-in-viewport 
             (capture-poems)
             (publish-button) )
@@ -89,9 +90,9 @@
 
 (de search-poems (Dst)
    (action
-      (html 0 "Bad Poetry" *Css NIL
+      (html 0 "Search Poetry" *Css NIL
          (nav)
-         (form NIL
+         (form 'nav-padding
             (diaform '(Dst)
                (gui 'title '(+Var +DbHint +Cue +TextField) 
                   'poem-title* 
@@ -149,7 +150,7 @@
 
 (de show-poems2 ()
    (action
-      (html 0 "Bad Poetry" *Css NIL
+      (html 0 "View Poetry" *Css NIL
          (nav)
          (form 'center-in-viewport
             (<h1> NIL (<id> (: title)))

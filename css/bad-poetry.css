@@ -1,26 +1,29 @@
-.landing-page {
-  background-color: #EE4279;
-}
-
+/* bad poetry logo */
 .landing-page h1 {
-  color: #fff;
   font-size: 12vmax;
   font-weight: 900;
-  font-family: Georgia, serif;
+  font-family: 'Domine', serif;
   margin: 0 auto 0;
   width: 3em;
   line-height: 0.58;
+  letter-spacing: -0.1em;
 }
 
-/* color 'bad poetry' in fixed nav */
+.header {
+  border-bottom: 3px solid #536568;
+}
+
+
+/* 'bad poetry' in fixed nav */
 .logo {
-  color: #000;
+  color: #000; /* black */
+  width: 14px;
+  line-height: 0.8em;
+  padding-top: 0.9em;
+  text-transform: lowercase;
+  font-family: 'Domine', serif;
 }
 
-/* color 'bad' in 'bad poetry' */
-.landing-page .bad {
-  color: #CDDC2D;
-}
 
 .center-in-viewport {
   position: absolute;
@@ -31,24 +34,42 @@
 }
 
 
+.nav-padding {
+  padding-top: 100px;
+}
 
 /* nav colors */
 .nav-collapse a {
-  background-color: #CDDC2D;
+  color: #CDDC2D;
+  background-color: #EE4279;
+  font-weight: bold;
+  font: 16px 'Domine', serif;
 }
 
-.header {
-  background-color: #CDDC2D;
+/* hamburger menu */
+.nav-toggle:before {
+  color: #CDDC2D;
+  font-siz: 36px;
+  font-weight: bold;
 }
 
+/* 'X' to close menu */
+.nav-toggle.active:before {
+  font-size: 30px;
+  font-weight: bold;
+}
 
 /* colors */
+.white {
+  color: #fff;
+}
+
 .green {
-  color: 536568;
+  color: #536568;
 }
 
 .green-bg {
-  background-color: 536568;
+  background-color: #536568;
 }
 
 .yellow {

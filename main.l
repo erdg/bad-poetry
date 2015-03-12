@@ -18,7 +18,8 @@
       #"@lib.css"
       "css/entireframework.min.css" 
       "css/fixed-responsive-nav.css"
-      "css/bad-poetry.css" ) )
+      "css/bad-poetry.css"
+      "http://fonts.googleapis.com/css?family=Domine:700" ) )
 
 (load "@lib/http.l" "@lib/xhtml.l" "@lib/form.l")
 
