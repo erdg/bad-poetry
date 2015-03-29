@@ -4,17 +4,17 @@
          (<href> "Bad Poetry" "!work") )
       (<div> 'nav-collapse
          (<ul> NIL
-            (<li> NIL (<href> "Share a Poem" "!create-poems"))
-            (<li> NIL (<href> "Search for Poems" "!search-poems")) ) ) ) )
+            (<li> NIL (<href> "write poetry" "!create-poems"))
+            (<li> NIL (<href> "find poetry" "!search-poems")) ) ) ) )
 
 (de nav-js ()
    (javascript NIL
-            "var nav = responsiveNav('.nav-collapse', {
-               animate: true,
-               transition: 284,
-               label: 'bad poetry',
-               insert: 'before'
-            });" ) )
+      "var nav = responsiveNav('.nav-collapse', {
+         animate: true,
+         transition: 284,
+         label: 'bad poetry',
+         insert: 'before'
+      });" ) )
 
 (de fixed-nav-scripts ()
    (javascript "js/fixed-responsive-nav.js")
@@ -34,40 +34,41 @@
 
 
 
-(de create-poems ()
+[de create-poems ()
    (action
-      (html 0 "Create Poetry" *Css NIL  
-         (nav)
-         (<h1> 'nav-padding "Poem Creation Station")
-         (form 'center-in-viewport 
-            (capture-poems)
-            (publish-button) )
+      (html 0 "Write Poetry" *Css NIL  
+         (nav) 
+         (<div> "container nav-padding"
+            (<h1> "ta-c"
+               "Write Poetry" )
+            (form NIL
+               (capture-poems)
+               (publish-button) ) )
          (fixed-nav-scripts) 
-         (nav-js) ) ) )
+         (nav-js) ]
 
 
-(de capture-poems ()
-   (<div> 'row # for CSS, later
-      (gui '(+Style +Var +Cue +TextField)
-         'col
-         'title*
-         "Catchy title"
-         30 )
-      (gui '(+Style +Var +Cue +TextField)
-         'col
-         'poet*
-         "Tag your work"
-         30 ) )
-   (gui '(+Var +Cue +TextField)
+[de capture-poems ()
+   (gui '(+Style +Var +Cue +TextField)
+      "row u-full-width"
+      'title*
+      "Catchy title"
+      30 ) 
+   (gui '(+Style +Var +Cue +TextField)
+      "row u-full-width"
+      'poet*
+      "Tag your work"
+      30 )
+   (gui '(+Style +Var +Cue +TextField)
+      "row u-full-width"
       'txt*
       "Bad poetry here"
-      60 10 ) )
+      60 10 ) ]
 
 
-(de publish-button ()
-   (<div> 'row
+[de publish-button ()
    (gui '(+Style +Button) 
-      "col btn btn-b btn-sm smooth" 
+      "button-primary row u-full-width"
       "Publish bad poetry"
       '(prog
          (new! '(+Poem) 
@@ -76,15 +77,16 @@
             'txt   txt*
             'date  (date) )
          (off title* poet* txt*)
-         (setq *Url "!published") ) ) ) )
+         (setq *Url "!published") ]
 
 
 (de published ()
    (action
-      (html 0 "Bad Poetry" "@lib.css" NIL
+      (html 0 "Bad Poetry" *Css NIL
          (nav)
          (<h1> NIL "Congratulations!")
          (<p> NIL "Your poetry has been published!")
+         (fixed-nav-scripts)
          (nav-js) ) ) )
 
 
@@ -92,26 +94,32 @@
    (action
       (html 0 "Search Poetry" *Css NIL
          (nav)
-         (form 'nav-padding
+         (form "container pt-xxl" 
+            (<h1> "ta-c"
+               "Read Poetry" )
             (diaform '(Dst)
-               (gui 'title '(+Var +DbHint +Cue +TextField) 
-                  'poem-title* 
-                  '(title +Poem) 
-                  "Title"
-                  30 )
-               (gui 'poet '(+Var +DbHint +Cue +TextField) 
-                  'poem-poet* 
-                  '(poet +Poem) 
-                  "Poet"
-                  30 )
-               (gui 'txt '(+Var +Cue +TextField) 
-                  'poem-txt* 
-                  "Text" 30) 
-               (<div> 'row
-                  (<style> "col btn btn-classless btn-sm smooth"
+               [<div> "row pt-l"
+                  (gui 'title '(+Style +Var +DbHint +Cue +TextField) 
+                     "four columns"
+                     'poem-title* 
+                     '(title +Poem) 
+                     "Title"
+                     30 )
+                  (gui 'poet '(+Style +Var +DbHint +Cue +TextField) 
+                     "four columns"
+                     'poem-poet* 
+                     '(poet +Poem) 
+                     "Poet"
+                     30 )
+                  (gui 'txt '(+Style +Var +Cue +TextField) 
+                     "four columns"
+                     'poem-txt* 
+                     "Text" 30) ]
+               [<div> "row pb-l"
+                  (<style> "button-primary six columns"
                      (searchButton '(init> (: home query))) )
-                  (<style> "col btn btn-classless btn-sm smooth"
-                     (resetButton '(title poet txt query)) ) )
+                  (<style> "button-primary six columns"
+                     (resetButton '(title poet txt query)) ) ]
                (gui 'query '(+QueryChart) 8 
                   '(goal 
                      (quote
@@ -125,7 +133,7 @@
                            (part @Txt @@ txt) ) ) )
                   2
                   '((This) (list This (: poet))) )
-               (<table> 'table "Relevant Poems"
+               (<table> "table u-full-width" NIL
                   (quote
                      (NIL "Title")
                      (NIL "Poet") )
@@ -133,9 +141,10 @@
                      (<row> NIL
                         (gui 1 '(+ObjView +TextField) '(: title))
                         (gui 2 '(+TextField)) ) ) )
-               (<spread> 
-                  (scroll 8) ) ) )
-         (nav-js) ) ) )
+               (<div> "row"
+                  (<style> "three columns" 
+                     (scroll 8) ) ) ) )
+         (nav-js) ) ) ) 
 
 (de show-poems ()
    (action
@@ -148,14 +157,19 @@
                "Poem" (gui '(+E/R +TextField) '(txt : home obj) 30 6) ) ) ) ) )
 
 
-(de show-poems2 ()
+[de show-poems2 ()
    (action
       (html 0 "View Poetry" *Css NIL
          (nav)
-         (form 'center-in-viewport
-            (<h1> NIL (<id> (: title)))
-            (<h3> NIL (<id> (: poet)))
-            (<p> NIL (<id> (: txt))) 
-            (<p> NIL (<id> (: date)))
-            (stepBtn 'title '+Poem) )
-         (nav-js) ) ) )
+         [form "container pt-xxl"
+            (<h1> "ta-c" 
+               (<id> (: title)) )
+            (<h6> "ta-c"
+               "a bad poem by" )
+            (<h3> "ta-c pb" 
+               (<id> (: poet)) )
+            (<p> "ta-c"
+               (<id> (: txt)) )
+            (<style> "button"
+               (stepBtn 'title '+Poem) ]
+         (nav-js) ]

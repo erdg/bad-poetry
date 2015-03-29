@@ -15,8 +15,8 @@
 (setq *Css 
    (list 
       "css/normalize.css" 
-      #"@lib.css"
-      "css/entireframework.min.css" 
+      "css/skeleton.css" 
+      "css/utils.css"
       "css/fixed-responsive-nav.css"
       "css/bad-poetry.css"
       "http://fonts.googleapis.com/css?family=Domine:700" ) )

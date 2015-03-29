@@ -59,6 +59,17 @@
   font-weight: bold;
 }
 
+/* hints */
+.hints {
+  font-size: small;
+  color: black;
+  padding-left: 3px;
+  padding-right: 3px;
+  border: 1px solid;
+  background-color: white;
+}
+
+
 /* colors */
 .white {
   color: #fff;
