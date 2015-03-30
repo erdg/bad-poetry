@@ -36,9 +36,9 @@
 
 [de create-poems ()
    (action
-      (html 0 "Write Poetry" *Css NIL  
+      (html 0 "Write Poetry" *Css NIL 
          (nav) 
-         (<div> "container nav-padding"
+         (<div> "container pt-xxl"
             (<h1> "ta-c"
                "Write Poetry" )
             (form NIL
@@ -50,17 +50,17 @@
 
 [de capture-poems ()
    (gui '(+Style +Var +Cue +TextField)
-      "row u-full-width"
+      "row u-full-width mb-s"
       'title*
       "Catchy title"
       30 ) 
    (gui '(+Style +Var +Cue +TextField)
-      "row u-full-width"
+      "row u-full-width mb-s"
       'poet*
       "Tag your work"
       30 )
    (gui '(+Style +Var +Cue +TextField)
-      "row u-full-width"
+      "row u-full-width mb-s"
       'txt*
       "Bad poetry here"
       60 10 ) ]
@@ -68,7 +68,7 @@
 
 [de publish-button ()
    (gui '(+Style +Button) 
-      "button-primary row u-full-width"
+      "button-primary row u-full-width" 
       "Publish bad poetry"
       '(prog
          (new! '(+Poem) 
@@ -169,7 +169,5 @@
             (<h3> "ta-c pb" 
                (<id> (: poet)) )
             (<p> "ta-c"
-               (<id> (: txt)) )
-            (<style> "button"
-               (stepBtn 'title '+Poem) ]
+               (<id> (: txt)) ) ]
          (nav-js) ]

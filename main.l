@@ -25,6 +25,17 @@
 
 (load "er.l" "gui.l")
 
+
+### utilities ###
+(class +Cue)
+
+(dm T (Str . @)
+   (=: cue (pack Str))  # remove carrots from cue text 
+   (pass extra) )
+
+(patch <area> "\" wrap=\"off\"" "\" wrap=\"hard\"")  # wrap=hard for textarea
+###
+
 (de main ()
    (pool "poem.db") )
 
